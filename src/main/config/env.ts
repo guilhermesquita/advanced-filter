@@ -1,7 +1,7 @@
 export const env = {
   port: process.env.PORT ?? 3000,
-  host: 'locahost',
-  database: 'jlx.db'
+  host: 'localhost',
+  database: 'jlx'
 }
 
 function handleBoolean(
