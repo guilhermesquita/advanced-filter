@@ -1,7 +1,7 @@
 import {
   ConnectionNotFoundError,
   TransactionNotFoundError
-} from '@/infra/repos/postgres/helpers'
+} from '@/infra/repos/sqlite/helpers'
 import { DbTransaction } from '@/application/contracts'
 import { QueryRunner, DataSource } from 'typeorm'
 import { env } from '@/main/config/env'
@@ -11,7 +11,7 @@ export class PgConnection implements DbTransaction {
   private query?: QueryRunner
   private dataSource: DataSource
 
-  private constructor() {}
+  private constructor() { }
 
   static getInstance(): PgConnection {
     if (PgConnection.instance === undefined)
@@ -22,15 +22,11 @@ export class PgConnection implements DbTransaction {
   connect(): DataSource {
     if (this.dataSource === undefined) {
       this.dataSource = new DataSource({
-        type: 'postgres',
-        host: env.postgres_host,
-        port: +env.postgres_port,
-        username: env.postgres_username,
-        password: env.postgres_password,
-        database: env.postgres_database,
+        type: 'sqlite',
+        database: env.database,
         entities: ['src/**/*.entity.ts', 'dist/**/*.entity.js'],
-        synchronize: env.postgres_synchronize,
-        logging: env.postgres_logging
+        synchronize: true,
+        logging: true
       })
     }
     return this.dataSource

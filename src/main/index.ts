@@ -1,5 +1,5 @@
 import './config/module-alias'
-import { PgConnection } from '@/infra/repos/postgres/helpers'
+import { PgConnection } from '@/infra/repos/sqlite/helpers'
 import 'reflect-metadata'
 import { env } from '@/main/config/env'
 import { API, SWAGGER } from '@/utils/constants'
